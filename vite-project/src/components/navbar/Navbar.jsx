@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, useNavigate } from "react-router-dom";
+import { DocSearch } from "@docsearch/react";
 import {
   Navbar,
   MobileNav,
@@ -12,6 +13,7 @@ import {
   Avatar,
   Card,
   IconButton,
+  Input,
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
@@ -25,6 +27,7 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  MagnifyingGlassIcon
 } from "@heroicons/react/24/solid";
  
 // profile menu component
@@ -51,6 +54,13 @@ const profileMenuItems = [
     icon: PowerIcon,
   },
 ];
+
+
+const APP_ID = "your-app-id";
+const INDEX_NAME = "your-index-name";
+const API_KEY = "your-algolia-api-key";
+
+
  
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -152,46 +162,46 @@ function NavListMenu() {
     </a>
   ));
  
-  return (
-    <React.Fragment>
-      <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
-        <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal">
-            <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
-              <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-              Pages{" "}
-              <ChevronDownIcon
-                strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
-                  isMenuOpen ? "rotate-180" : ""
-                }`}
-              />
-            </MenuItem>
-          </Typography>
-        </MenuHandler>
-        <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-          <Card
-            color="blue"
-            shadow={false}
-            variant="gradient"
-            className="col-span-3 grid h-full w-full place-items-center rounded-md"
-          >
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-          </Card>
-          <ul className="col-span-4 flex w-full flex-col gap-1">
-            {renderItems}
-          </ul>
-        </MenuList>
-      </Menu>
-      <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
-        <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-        Pages{" "}
-      </MenuItem>
-      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
-        {renderItems}
-      </ul>
-    </React.Fragment>
-  );
+  // return (      # Pages dropdown menu !
+  //   <React.Fragment>
+  //     <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
+  //       <MenuHandler>
+  //         <Typography as="a" href="#" variant="small" className="font-normal">
+  //           <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
+  //             <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+  //             Pages{" "}
+  //             <ChevronDownIcon
+  //               strokeWidth={2}
+  //               className={`h-3 w-3 transition-transform ${
+  //                 isMenuOpen ? "rotate-180" : ""
+  //               }`}
+  //             />
+  //           </MenuItem>
+  //         </Typography>
+  //       </MenuHandler>
+  //       <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
+  //         <Card
+  //           color="blue"
+  //           shadow={false}
+  //           variant="gradient"
+  //           className="col-span-3 grid h-full w-full place-items-center rounded-md"
+  //         >
+  //           <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
+  //         </Card>
+  //         <ul className="col-span-4 flex w-full flex-col gap-1">
+  //           {renderItems}
+  //         </ul>
+  //       </MenuList>
+  //     </Menu>
+  //     <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
+  //       <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+  //       Pages{" "}
+  //     </MenuItem>
+  //     <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
+  //       {renderItems}
+  //     </ul>
+  //   </React.Fragment>
+  // );
 }
  
 // nav list component
@@ -271,6 +281,14 @@ export function ComplexNavbar() {
         <Button size="sm" variant="text" color="blue-gray">
           <span>Admin Login</span>
         </Button>
+
+
+
+
+
+
+
+
         <ProfileMenu />
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
