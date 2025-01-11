@@ -41,8 +41,9 @@ const profileMenuItems = [
     icon: Cog6ToothIcon,
   },
   {
-    label: "Inbox",
+    label: "My Blogs",
     icon: InboxArrowDownIcon,
+    route: "/createBlog",
   },
   {
     label: "Help",
@@ -61,15 +62,12 @@ const API_KEY = "your-algolia-api-key";
 
 
  
-function ProfileMenu() {
+function ProfileMenu({handleLogout}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
  
   const closeMenu = () => setIsMenuOpen(false);
 
-  const goToProfilePage = () => {
-    navigate("/pages/admin/dashboard/Dashboard"); // Replace '/profile' with your target route
-  };
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -104,6 +102,9 @@ function ProfileMenu() {
                 closeMenu();
                 if (route) {
                   navigate(route);
+                }
+                if(label == "Sign Out" && handleLogout) {
+                  handleLogout();
                 }
               }}
               className={`flex items-center gap-2 rounded ${
@@ -214,6 +215,7 @@ const navListItems = [
   {
     label: "Account",
     icon: UserCircleIcon,
+    href: '/dashboard'
   },
   {
     label: "Blogs",
@@ -263,6 +265,11 @@ export function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
  
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/adminLogin');
+  }
  
   React.useEffect(() => {
     window.addEventListener(
@@ -278,6 +285,10 @@ export function ComplexNavbar() {
           as="a"
           href="#"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          onClick={(e) =>{
+            e.preventDefault();
+            navigate("/");
+          }}
         >
           Blog Spot
         </Typography>
@@ -305,7 +316,7 @@ export function ComplexNavbar() {
 
 
 
-        <ProfileMenu />
+        <ProfileMenu handleLogout={handleLogout} />
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />

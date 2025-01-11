@@ -2,18 +2,77 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { BsFillArrowLeftCircleFill } from "react-icons/bs"
 import myContext from '../../../context/data/myContext';
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Layout from '../../../components/layout/Layout'
+import { Timestamp } from 'firebase/firestore';
+import { ref } from 'firebase/database';
+import { uploadBytes } from 'firebase/storage';
+import { getDownloadURL } from 'firebase/storage';
+import { collection } from 'firebase/firestore';
+import { addDoc } from 'firebase/firestore';
+
+
+
+
 import {
     Button,
     Typography,
 } from "@material-tailwind/react";
+import toast from 'react-hot-toast';
 
 function CreateBlog() {
-    const context = useContext(myContext);
+    const navigate = useNavigate();
 
-    const [blogs, setBlogs] = useState({ title: '', category: '', content: '' });
+    const [blogs, setBlogs] = useState({ title: '', category: '', content: '', time: Timestamp.now(), });
     const [thumbnail, setthumbnail] = useState();
     const [text, settext] = useState('');
+
+
+    // Add post function
+
+    const addPost = async () => {
+        if(blogs.title == "" || blogs.category == "" || blogs.content === "" || blogs.thumbnail === "") {
+            toast.error('Please Fill All Fields');
+        }
+
+        uploadImage()
+    }
+
+
+    // Upload image function
+
+    const uploadImage = async () => {
+        if (!thumbnail) return;
+        const imageRef = ref(storage, `blogimage/${thumbnail.name}`);
+        uploadBytes(imageRef, thumbnail).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                const productRef = collection(fireDb, "blogPost")
+                try {
+                    addDoc(productRef, {
+                        blogs,
+                        thumbnail: url,
+                        time: Timestamp.now(),
+                        date: new Date().toLocaleString(
+                            "en-US",
+                            {
+                                month: "short",
+                                day: "2-digit",
+                                year: "numeric",
+                            }
+                        )
+
+                    })
+                    Navigate('/dashboard')
+                    toast.success('Post Added Successfully');
+                }
+                catch (error) {
+                    toast.error(error)
+                    console.log(error)
+                }
+            });
+        });
+    }
+
 
     // Create markup function 
     function createMarkup(c) {
@@ -31,7 +90,9 @@ function CreateBlog() {
     }
 
     return (
-        <div className=' container mx-auto max-w-5xl py-6'>
+
+        <Layout>
+        <div className=' container mx-auto max-w-5xl py-6 my-10'>
             <div className="p-5">
                 {/* Top Item  */}
                 <div className="mb-2 flex justify-between">
@@ -143,6 +204,8 @@ function CreateBlog() {
                 </div>
             </div>
         </div>
+
+       </Layout> 
     )
 }
 

@@ -1,7 +1,17 @@
 import React from 'react';
 import Layout from '../../../components/layout/Layout'
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+
+  // Logout Function
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/adminLogin');
+  }
+
   return (
     <Layout>
 
@@ -28,7 +38,7 @@ function Dashboard() {
 
 <section className='buttons-container h-20 my-10 w-full flex items-center justify-evenly'>
   <button className='buttons-inside-dashboard-container w-32'>Create Blog</button>
-  <button className='buttons-inside-dashboard-container w-32'>Logout</button>
+  <button className='buttons-inside-dashboard-container w-32' onClick={handleLogout}>Logout</button>
 </section>
 
 
