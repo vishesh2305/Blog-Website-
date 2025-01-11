@@ -1,6 +1,5 @@
 import React from "react";
-import { Route, useNavigate } from "react-router-dom";
-import { DocSearch } from "@docsearch/react";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   MobileNav,
@@ -35,7 +34,7 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    route: "/profile",
+    route: "/Dashboard",
   },
   {
     label: "Edit Profile",
@@ -64,6 +63,7 @@ const API_KEY = "your-algolia-api-key";
  
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
  
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -95,12 +95,17 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, route }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => {
+                closeMenu();
+                if (route) {
+                  navigate(route);
+                }
+              }}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -213,18 +218,21 @@ const navListItems = [
   {
     label: "Blogs",
     icon: CubeTransparentIcon,
+    href: '/AllBlogs',
   },
   {
-    label: "Docs",
+    label: "Create Blog",
     icon: CodeBracketSquareIcon,
+    href: '/createBlog'
   },
 ];
  
 function NavList() {
+  const navigate = useNavigate();
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
+      {navListItems.map(({ label, icon, href }, key) => (
         <Typography
           key={label}
           as="a"
@@ -232,6 +240,12 @@ function NavList() {
           variant="small"
           color="gray"
           className="font-medium text-blue-gray-500"
+          onClick={(e) => {
+            e.preventDefault();
+            if(href) {
+              navigate(href);
+            }
+          }}
         >
           <MenuItem className="flex items-center gap-2 lg:rounded-full">
             {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
@@ -244,6 +258,8 @@ function NavList() {
 }
  
 export function ComplexNavbar() {
+  const navigate = useNavigate();
+
   const [isNavOpen, setIsNavOpen] = React.useState(false);
  
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -268,7 +284,7 @@ export function ComplexNavbar() {
         <div className="hidden lg:block">
           <NavList />
         </div>
-        <IconButton
+        {/* <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
@@ -276,9 +292,9 @@ export function ComplexNavbar() {
           className="ml-auto mr-2 lg:hidden"
         >
           <Bars2Icon className="h-6 w-6" />
-        </IconButton>
+        </IconButton> */}
  
-        <Button size="sm" variant="text" color="blue-gray">
+        <Button size="sm" variant="text" color="blue-gray" onClick={() => {window.location.href = "/adminLogin"}}>
           <span>Admin Login</span>
         </Button>
 

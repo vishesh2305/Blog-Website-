@@ -9,7 +9,7 @@ function Layout({ children }) {
             <Navbar />
 
             {/* main Content  */}
-            <div className="content min-h-screen">
+            <div className="content min-h-full">
                 {children}
             </div>
 
