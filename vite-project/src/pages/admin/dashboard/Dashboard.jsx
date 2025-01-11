@@ -28,8 +28,8 @@ function Dashboard() {
 
 <div className='profiledetails-dashboard w-3/5 flex flex-col items-center justify-center'>
 <span id='profiledetails-content-container'>
-  <h2 className='text-2xl font-bold text-black-700'>Profile Name</h2>
-  <h6 className='text-lg font-bold text-black-700'>Profile Role</h6>
+  <h2 className='text-2xl font-bold text-black-700'>Test User</h2>
+  <h6 className='text-lg font-bold text-black-700'>Testing Role</h6>
   <p className='text-base text-gray-600'>Email</p>
   <h2 >Total Blogs</h2>
 </span>
@@ -37,7 +37,7 @@ function Dashboard() {
 </section>
 
 <section className='buttons-container h-20 my-10 w-full flex items-center justify-evenly'>
-  <button className='buttons-inside-dashboard-container w-32'>Create Blog</button>
+  <button className='buttons-inside-dashboard-container w-32' onClick={ () => navigate("/createBlog")}>Create Blog</button>
   <button className='buttons-inside-dashboard-container w-32' onClick={handleLogout}>Logout</button>
 </section>
 

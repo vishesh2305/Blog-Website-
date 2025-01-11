@@ -39,6 +39,7 @@ const profileMenuItems = [
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
+    route: "/Dashboard"
   },
   {
     label: "My Blogs",

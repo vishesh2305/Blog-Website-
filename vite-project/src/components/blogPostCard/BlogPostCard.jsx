@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import myContext from '../../context/data/myContext';
+import { useNavigate } from "react-router-dom";
+
 import {
     Card,
     CardHeader,
@@ -9,6 +11,13 @@ import {
     Button} from "@material-tailwind/react";
 
 function BlogPostCard() {
+  const navigate = useNavigate();
+
+  const handleReadMoreClick = () => {
+    navigate('/blog')
+  }
+
+
   return(
     <section className='cards-section flex justify-evenly items-center flex-wrap '>
  {/*Card 1  */}
@@ -28,7 +37,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+      <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 
@@ -49,7 +58,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+    <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 
@@ -70,7 +79,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+    <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 
@@ -91,7 +100,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+    <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 
@@ -112,7 +121,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+    <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 
@@ -133,7 +142,7 @@ function BlogPostCard() {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0">
-      <Button>Read More</Button>
+    <Button onClick={handleReadMoreClick}>Read More</Button>
     </CardFooter>
   </Card>
 

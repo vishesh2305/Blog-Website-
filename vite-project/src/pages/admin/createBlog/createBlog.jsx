@@ -85,9 +85,8 @@ function CreateBlog() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(blogs);
-        // Add API call to submit the blog
-    }
+        navigate('/BlogInfo', {state : {blog: blogs, thumbnail: thumbnail}})
+    };
 
     return (
 

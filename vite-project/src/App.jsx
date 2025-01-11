@@ -27,7 +27,8 @@ function App() {
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/createblog" element={<CreateBlog />} /> // Define the route for the Create Blog page
-
+          <Route path="/createBlog" element={<CreateBlog />} />
+          <Route path="/BlogInfo" element={<BlogInfo />} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>
