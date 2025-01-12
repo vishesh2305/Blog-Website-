@@ -11,6 +11,7 @@ import BlogInfo from "./pages/blogInfo/BlogInfo";
 import AdminLogin from "./pages/admin/adminLogin/AdminLogin";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
 import CreateBlog from "./pages/admin/createBlog/createBlog"; // Import the CreateBlog component
+import EntryPage from "./pages/entrypage/EntryPage";
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
     </div>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<EntryPage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/allblogs" element={<AllBlogs />} />
           <Route path="/bloginfo/:id" element={<BlogInfo />} />
